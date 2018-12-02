@@ -13,6 +13,6 @@ class CreateThumpSessions < ActiveRecord::Migration[5.1]
 
     add_column :thump_sessions, :user_id, :integer
     add_foreign_key :thump_sessions, :users
-    add_index :thump_sessions, :user_id, unique: true
+    add_index :thump_sessions, :user_id
   end
 end

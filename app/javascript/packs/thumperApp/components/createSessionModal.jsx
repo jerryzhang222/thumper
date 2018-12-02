@@ -22,19 +22,14 @@ class CreateSessionModal extends React.Component {
 	constructor() {
 		super();
 
-		this.afterOpenModal = this.afterOpenModal.bind(this);
 		this.handleDateTimeChange = this.handleDateTimeChange.bind(this);
 		this.handleDurationChange = this.handleDurationChange.bind(this);
 		this.handlePpmChange = this.handlePpmChange.bind(this);
 		this.handleRatingChange = this.handleRatingChange.bind(this);
 		this.handleNotesChange = this.handleNotesChange.bind(this);
 		this.handleNicknameChange = this.handleNicknameChange.bind(this);
+		this.handlePartnerNameChange = this.handlePartnerNameChange.bind(this);
 		this.handleSubmitClick = this.handleSubmitClick.bind(this);
-	}
-
-	afterOpenModal() {
-	  // references are now sync'd and can be accessed.
-	  this.subtitle.style.color = '#f00';
 	}
 
 	handleDateTimeChange(e) {
@@ -51,6 +46,10 @@ class CreateSessionModal extends React.Component {
 
 	handlePpmChange(e) {
 		this.setState({ ppm: e.target.value })
+	}
+
+	handlePartnerNameChange(e) {
+		this.setState({ partnerName: e.target.value })
 	}
 
 	handleRatingChange(e) {
@@ -72,6 +71,8 @@ class CreateSessionModal extends React.Component {
         rating: this.state.rating,
         notes: this.state.notes,
         nickname: this.state.nickname,
+        partnerName: this.state.partnerName,
+        userId: this.props.userId,
       }
     })
 	}
@@ -80,7 +81,6 @@ class CreateSessionModal extends React.Component {
     return (
       <Modal
         isOpen={this.props.isOpen}
-        onAfterOpen={this.afterOpenModal}
         onRequestClose={this.props.onRequestClose}
         style={customStyles}
         contentLabel="Example Modal"
@@ -90,20 +90,23 @@ class CreateSessionModal extends React.Component {
         <button onClick={this.props.onRequestClose}>close</button>
 
         <Form id="create-session-form">
-	        <label htmlFor="nickname-field">Nickname:</label>
-				  <Text field="nickname" onChange={this.handleNicknameChange} id="nickname-field" />
+	        <label htmlFor="nickname-field">Nickname:</label><br></br>
+				  <Text field="nickname" onChange={this.handleNicknameChange} id="nickname-field" /><br></br>
 
-	        <label htmlFor="dateTime-field">Date:</label>
-	        <input type="datetime-local" name="dateTime" onChange={this.handleDateTimeChange} id="dateTime-field"/>
+				  <label htmlFor="partner-name-field">Partner Name:</label><br></br>
+				  <Text field="partner-name" onChange={this.handlePartnerNameChange} id="partner-name-field" /><br></br>
 
-				  <label htmlFor="duration-field">Duration:</label>
-				  <Text field="duration" onChange={this.handleDurationChange} id="duration-field" />
+	        <label htmlFor="dateTime-field">Date:</label><br></br>
+	        <input type="datetime-local" name="dateTime" onChange={this.handleDateTimeChange} id="dateTime-field"/><br></br>
 
-				  <label htmlFor="ppm-field">Pumps Per Minute (PPM):</label>
-				  <Text field="ppm" onChange={this.handlePpmChange} id="ppm-field" />
+				  <label htmlFor="duration-field">Duration:</label><br></br>
+				  <Text field="duration" onChange={this.handleDurationChange} id="duration-field" /><br></br>
 
-				  <label htmlFor="rating-field">Rating:</label>
-				  <Select field="rating" onChange={this.handleRatingChange} id="rating">
+				  <label htmlFor="ppm-field">Pumps Per Minute (PPM):</label><br></br>
+				  <Text field="ppm" onChange={this.handlePpmChange} id="ppm-field" /><br></br>
+
+				  <label htmlFor="rating-field">Rating:</label><br></br>
+				  <Select field="rating" onChange={this.handleRatingChange} id="rating"><br></br>
 				  	<Option value="" disabled>
 				      Select One...
 				    </Option>
@@ -112,10 +115,10 @@ class CreateSessionModal extends React.Component {
 				  	<Option value="3">3</Option>
 				  	<Option value="4">4</Option>
 				  	<Option value="5">5</Option>
-				  </Select>
+				  </Select><br></br>
 
-				  <label htmlFor="notes-field">Notes:</label>
-				  <TextArea field="notes" onChange={this.handleNotesChange} id="textarea-notes" />
+				  <label htmlFor="notes-field">Notes:</label><br></br>
+				  <TextArea field="notes" onChange={this.handleNotesChange} id="textarea-notes" /><br></br>
 
 				  <button onClick={this.handleSubmitClick} type="submit">
 				    Submit
