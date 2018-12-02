@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CreateSessionModal from './addSessionModal';
+import CreateSessionModal from './createSessionModal';
+import UserThumpSessionsList from './userThumpSessionsList';
 
 class LandingPage extends React.Component {
   constructor() {
@@ -8,28 +9,27 @@ class LandingPage extends React.Component {
 
     this.state = {
       modalIsOpen: false,
-      currentUserId: null
     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const response = $.ajax({
       type: 'GET',
       url: `/users/checkForUser`
+    }).done(response => {
+      if(response.id){
+        this.setState({
+          currentUserId: response.id
+        })
+      } else {
+        this.setState({
+          currentUserId: null
+        })
+      }
     })
-
-    if(response.id){
-      this.setState({
-        currentUserId: response.id
-      })
-    } else {
-      this.setState({
-        currentUserId: null
-      })
-    }
   }
 
   openModal() {
@@ -44,11 +44,14 @@ class LandingPage extends React.Component {
     return (
       <div>
       	<h1>Thumper</h1>
-        <button onClick={this.openModal}>Open Modal</button>
+        <button onClick={this.openModal}>Log Session</button>
         <CreateSessionModal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
+          userId={this.state.currentUserId}
+        />
+        <UserThumpSessionsList
           userId={this.state.currentUserId}
         />
       </div>

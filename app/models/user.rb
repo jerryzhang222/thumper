@@ -4,4 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :trackable
+
+  has_many :thump_sessions
+
+  enum gender: {
+  	male: 0,
+  	female: 1
+  }
 end
