@@ -1,0 +1,2 @@
+class ThumpSession < ApplicationRecord
+end
